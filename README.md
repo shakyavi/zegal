@@ -16,7 +16,7 @@ Message Format
 }
 ```
 ## ARCHITECTURE & DESIGN
-The project consists of three major modules:
+The project consists of three major modules/services:
 - producer
 - consumer
 - frontend
@@ -37,12 +37,14 @@ The consume logic for the `zegalDemoFiltered` queue is also setup, after creatin
 The `sender.js` file also starts a socket connection based on the http server instance. On successful connection, a listener for `messageFromApp` is setup on the socket, which in turn invokes the `pushMessageToQueue` method. This method, starts publishing messages to the `zegalDemo` queue.
 
 ### consumer module
-The consumer module, like the producer is based on NodeJs and Express framework. The http server is initialized and it also uses the `RabbitMQ` and `Socket.IO` connections to receive the queue messages and filter them by priority.
+The consumer module, like the producer is based on NodeJs. It uses the `RabbitMQ` and `Socket.IO` connections to receive the queue messages and filter them by priority. Messages with priority greater than 7 are pushed to `zegalDemoFiltered` queue by the `receiver.js`
 
 ### frontend module
+The frontend is a React app, used to display the messages received from the web socket. On loading the page, the frontend emits a `messageFromApp` socket message, which is handled by the `sender.js`. This socket message triggers the push message action the producer and the `receiver.js` filters and pushes the messages to new `zegalDemoFiltered` queue. The `sender.js` listens on this connection and finally emits `consumerResponse` socket message.
+The `App.js` file is wrapped around with `socket.io` implementation to enable listening for `consumerResponse` message. On receiving, the message array is updated and listing of messages is displayed accordingly.
 
 ## SETUP
-
+The three modules `producer`, `consumer` and `frontend` all require `npm install` to load required packages. The `RabbitMQ` service must be setup in the host machine, as it is the `message broker` used for this project. 
 
 
 
