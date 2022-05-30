@@ -44,7 +44,14 @@ The frontend is a React app, used to display the messages received from the web 
 The `App.js` file is wrapped around with `socket.io` implementation to enable listening for `consumerResponse` message. On receiving, the message array is updated and listing of messages is displayed accordingly.
 
 ## SETUP
-The three modules `producer`, `consumer` and `frontend` all require `npm install` to load required packages. The `RabbitMQ` service must be setup in the host machine, as it is the `message broker` used for this project. 
+The three modules `producer`, `consumer` and `frontend` all require `npm install` to load required packages. The `RabbitMQ` service must be setup in the host machine, as it is the `message broker` used for this project along with `NodeJs`. The following are the major dependencies of the project:
+```
+- amplib
+- socket.io
+- express
+- http
+- lorem-ipsum
+```
 
 
 
