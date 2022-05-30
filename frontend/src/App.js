@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import withSocket from "./withSocket"
 import {Row,Col,Container, Card, Form, Button, ListGroup} from 'react-bootstrap';
-import ReactList from 'react-list';
+// import ReactList from 'react-list';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({socketListen, socketSend}) {
