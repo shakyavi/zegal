@@ -2,10 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import withSocket from "./withSocket"
 import {Row,Col,Container, Card, Form, Button, ListGroup} from 'react-bootstrap';
+import ReactList from 'react-list';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App({socketListen, socketSend}) {
-
+    // var listData = [
+    // ]
     socketListen("consumerResponse", (response) => {
         console.log(`\nsocket listening to consumerResponse`)
         console.log(response)
@@ -49,6 +51,16 @@ function App({socketListen, socketSend}) {
                                 <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
                             </ListGroup>
                     </Row>
+                    {/*<Row>
+                        <h1>Accounts</h1>
+                        <div style={{overflow: 'auto', maxHeight: 400}}>
+                            <ReactList
+                                itemRenderer={ ()=>{ } }
+                                length={this.listData.length}
+                                type='uniform'
+                            />
+                        </div>
+                    </Row>*/}
                 </Container>
             </header>
 
