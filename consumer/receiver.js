@@ -1,13 +1,4 @@
 var amqp = require('amqplib/callback_api')
-const express = require("express")
-const socketIO = require('socket.io');
-const http = require('http')
-
-let server = http.createServer(express())
-// let io = socketIO(server)
-let io = socketIO(server,
-    {cors:{origin:'*',methods:["GET","POST"]}}
-)
 
 //1. Create Connection
 amqp.connect('amqp://localhost', (connError, connection) => {
@@ -29,15 +20,11 @@ amqp.connect('amqp://localhost', (connError, connection) => {
         channel.consume('zegalDemo', (event)=>{
             console.log(`consuming 'zegalDemo' queue` )
             let data = JSON.parse(event.content.toString())
-            console.log('received data',data)
             console.log('selecting messages with priority >=7')
 
             if(data.priority>=7){
                 amqp.channel.sendToQueue('zegalDemoFiltered', Buffer.from(event.content.toString()))
             }
-
-            // console.log(`emitting message ${data.message} of type consumerResponse to socketId- ${data.socketId}`)
-            // io.to(data.socketId).emit('consumerResponse', data.message)
 
         },{noAck:true} )
     console.log('$$$ Consumer Ready...\n')

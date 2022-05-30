@@ -15,7 +15,6 @@ const lorem = new LoremIpsum({
 });
 
 let server = http.createServer(express())
-// let io = socketIO(server)
 let io = socketIO(server,
     {cors:{origin:'*',methods:["GET","POST"]}}
 )
@@ -41,7 +40,6 @@ amqp.connect('amqp://localhost', (connError, connection) => {
         channel.consume("zegalDemoFiltered", (event) => {
             console.log(`consuming zegalDemoFiltered`)
             let resData = JSON.parse(event.content.toString())
-            console.log('resData\n',resData)
             console.log(`Emitting 'consumerResponse' to socketId-> ${resData.socketId}` )
             io.to(resData.socketId).emit('consumerResponse', resData)}, {
             noAck: true

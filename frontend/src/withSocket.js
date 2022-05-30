@@ -23,8 +23,7 @@ function withSocket(WrappedComponent) {
             <WrappedComponent
                 {...props}
                 socketSend={socketSend}
-                socketListen={socketListen}
-            />
+                socketListen={socketListen}/>
         )
     }
     return WithSocket
